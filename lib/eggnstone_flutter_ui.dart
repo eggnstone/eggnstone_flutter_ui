@@ -1,4 +1,4 @@
-/// eggnstone_flutter_common
+/// eggnstone_flutter_ui
 library;
 
 export 'src/widgets/Button.dart';
