@@ -1,0 +1,72 @@
+// ignore_for_file: diagnostic_describe_all_properties
+
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+
+class Button extends StatelessWidget
+{
+    static const double INNER_HORIZONTAL_PADDING_FOR_WEB = 0;
+    static const double INNER_VERTICAL_PADDING_FOR_WEB = 12;
+    static const double OUTER_HORIZONTAL_PADDING_FOR_WEB = 0;
+    static const double OUTER_VERTICAL_PADDING_FOR_WEB = 6;
+
+    static const double INNER_HORIZONTAL_PADDING_FOR_WINDOWS = 0;
+    static const double INNER_VERTICAL_PADDING_FOR_WINDOWS = 8;
+    static const double OUTER_HORIZONTAL_PADDING_FOR_WINDOWS = 0;
+    static const double OUTER_VERTICAL_PADDING_FOR_WINDOWS = 2;
+
+    final Widget child;
+
+    Button({required Widget child, required VoidCallback? onPressed, super.key})
+        : child = ElevatedButton(child: child, onPressed: onPressed);
+
+    Button.text({required String text, required VoidCallback? onPressed, ButtonStyle? style, super.key})
+        : child = ElevatedButton(child: _addInnerPadding(Text(text.toUpperCase())), style: style, onPressed: onPressed);
+
+    Button.icon({required Widget icon, required String text, required VoidCallback? onPressed, ButtonStyle? style, super.key})
+        : child = ElevatedButton.icon(icon: icon, label: _addInnerPadding(Center(child: Text(text.toUpperCase()))), style: style, onPressed: onPressed);
+
+    @override
+    Widget build(BuildContext context)
+    => _addOuterPadding(child);
+
+    static Widget _addInnerPadding(Widget child)
+    {
+        if (kIsWeb)
+            return Padding(
+                // ignore: avoid_redundant_argument_values
+                padding: const EdgeInsets.symmetric (horizontal: INNER_HORIZONTAL_PADDING_FOR_WEB, vertical: INNER_VERTICAL_PADDING_FOR_WEB),
+                child: child
+            );
+
+        if (Platform.isWindows)
+            return Padding(
+                // ignore: avoid_redundant_argument_values
+                padding: const EdgeInsets.symmetric (horizontal: INNER_HORIZONTAL_PADDING_FOR_WINDOWS, vertical: INNER_VERTICAL_PADDING_FOR_WINDOWS),
+                child: child
+            );
+
+        return child;
+    }
+
+    static Widget _addOuterPadding(Widget child)
+    {
+        if (kIsWeb)
+            return Padding(
+                // ignore: avoid_redundant_argument_values
+                padding: const EdgeInsets.symmetric (horizontal: OUTER_HORIZONTAL_PADDING_FOR_WEB, vertical: OUTER_VERTICAL_PADDING_FOR_WEB),
+                child: child
+            );
+
+        if (Platform.isWindows)
+            return Padding(
+                // ignore: avoid_redundant_argument_values
+                padding: const EdgeInsets.symmetric (horizontal: OUTER_HORIZONTAL_PADDING_FOR_WINDOWS, vertical: OUTER_VERTICAL_PADDING_FOR_WINDOWS),
+                child: child
+            );
+
+        return child;
+    }
+}

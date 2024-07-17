@@ -1,7 +1,4 @@
-library eggnstone_flutter_common;
+/// eggnstone_flutter_common
+library;
 
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+export 'src/widgets/Button.dart';
