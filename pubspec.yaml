@@ -1,5 +1,5 @@
 name: eggnstone_flutter_ui
-description: "Common Flutter widgets"
+description: "Common Flutter UI tools and widgets"
 publish_to: 'none'
 version: 0.0.1
 
@@ -10,8 +10,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
-  #flutter_riverpod: ^2.5.1
 
 dev_dependencies:
   flutter_test:
