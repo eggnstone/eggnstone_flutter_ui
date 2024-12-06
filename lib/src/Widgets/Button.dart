@@ -19,14 +19,46 @@ class Button extends StatelessWidget
 
     final Widget child;
 
-    Button({required Widget child, required VoidCallback? onPressed, super.key})
-        : child = ElevatedButton(child: child, onPressed: onPressed);
+    Button({
+        required Widget child,
+        Color? color,
+        Color? textColor,
+        VoidCallback? onPressed,
+        super.key
+    })
+        : child = ElevatedButton(
+        child: child,
+        style: _createStyle(color, textColor),
+        onPressed: onPressed
+    );
 
-    Button.text({required String text, required VoidCallback? onPressed, ButtonStyle? style, super.key})
-        : child = ElevatedButton(child: _addInnerPadding(Text(text.toUpperCase())), style: style, onPressed: onPressed);
+    // TODO: add textScaleFactor
+    Button.text({
+        required String text, 
+        required VoidCallback? onPressed, 
+        Color? color,
+        Color? textColor,
+        super.key
+    })
+        : child = ElevatedButton(
+        child: _addInnerPadding(Text(text.toUpperCase())),
+        style: _createStyle(color, textColor),
+        onPressed: onPressed
+    );
 
-    Button.icon({required Widget icon, required String text, required VoidCallback? onPressed, ButtonStyle? style, super.key})
-        : child = ElevatedButton.icon(icon: icon, label: _addInnerPadding(Center(child: Text(text.toUpperCase()))), style: style, onPressed: onPressed);
+    Button.icon({
+        required Widget icon,
+        required String text,
+        Color? color,
+        VoidCallback? onPressed,
+        super.key
+    })
+        : child = ElevatedButton.icon(
+        icon: icon,
+        label: _addInnerPadding(Center(child: Text(text.toUpperCase()))),
+        style: _createStyle(color, null),
+        onPressed: onPressed
+    );
 
     @override
     Widget build(BuildContext context)
@@ -37,14 +69,14 @@ class Button extends StatelessWidget
         if (kIsWeb)
             return Padding(
                 // ignore: avoid_redundant_argument_values
-                padding: const EdgeInsets.symmetric (horizontal: INNER_HORIZONTAL_PADDING_FOR_WEB, vertical: INNER_VERTICAL_PADDING_FOR_WEB),
+                padding: const EdgeInsets.symmetric(horizontal: INNER_HORIZONTAL_PADDING_FOR_WEB, vertical: INNER_VERTICAL_PADDING_FOR_WEB),
                 child: child
             );
 
         if (Platform.isWindows)
             return Padding(
                 // ignore: avoid_redundant_argument_values
-                padding: const EdgeInsets.symmetric (horizontal: INNER_HORIZONTAL_PADDING_FOR_WINDOWS, vertical: INNER_VERTICAL_PADDING_FOR_WINDOWS),
+                padding: const EdgeInsets.symmetric(horizontal: INNER_HORIZONTAL_PADDING_FOR_WINDOWS, vertical: INNER_VERTICAL_PADDING_FOR_WINDOWS),
                 child: child
             );
 
@@ -56,17 +88,23 @@ class Button extends StatelessWidget
         if (kIsWeb)
             return Padding(
                 // ignore: avoid_redundant_argument_values
-                padding: const EdgeInsets.symmetric (horizontal: OUTER_HORIZONTAL_PADDING_FOR_WEB, vertical: OUTER_VERTICAL_PADDING_FOR_WEB),
+                padding: const EdgeInsets.symmetric(horizontal: OUTER_HORIZONTAL_PADDING_FOR_WEB, vertical: OUTER_VERTICAL_PADDING_FOR_WEB),
                 child: child
             );
 
         if (Platform.isWindows)
             return Padding(
                 // ignore: avoid_redundant_argument_values
-                padding: const EdgeInsets.symmetric (horizontal: OUTER_HORIZONTAL_PADDING_FOR_WINDOWS, vertical: OUTER_VERTICAL_PADDING_FOR_WINDOWS),
+                padding: const EdgeInsets.symmetric(horizontal: OUTER_HORIZONTAL_PADDING_FOR_WINDOWS, vertical: OUTER_VERTICAL_PADDING_FOR_WINDOWS),
                 child: child
             );
 
         return child;
     }
+
+    static ButtonStyle _createStyle(Color? color, Color? textColor)
+    => ButtonStyle(
+        backgroundColor: WidgetStateProperty.all(color),
+        foregroundColor: WidgetStateProperty.all(textColor)
+    );
 }
