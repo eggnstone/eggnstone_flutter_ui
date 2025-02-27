@@ -1,10 +1,11 @@
 name: eggnstone_flutter_ui
-description: "Common Flutter UI tools and widgets"
+copyright: 2024-2025 Mark Eggenstein
+description: A collection of Flutter UI tools and widgets.
 publish_to: 'none'
 version: 0.0.1
 
 environment:
-  sdk: '>=3.4.3 <4.0.0'
+  sdk: '>=3.0.0 <4.0.0'
   flutter: ">=1.17.0"
 
 dependencies:
